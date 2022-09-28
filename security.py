@@ -1,4 +1,4 @@
-from resources.user import UserModel
+from models.model import UserModel
 import hmac
 
 def authenticate(username, pwd):

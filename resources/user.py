@@ -1,8 +1,7 @@
-import sqlite3
 from flask_restful import Resource, reqparse
 from flask import jsonify, make_response
 
-from models.user import UserModel
+from models.model import UserModel
 
 class UserRegister(Resource):
     parser = reqparse.RequestParser()

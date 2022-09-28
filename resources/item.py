@@ -1,8 +1,8 @@
-import sqlite3
-from flask import jsonify, make_response, current_app
+from flask import jsonify, make_response
 from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
-from models.item import ItemModel
+from models.model import ItemModel
+from models.model import StoreModel
 
 class Item(Resource):
 
@@ -35,6 +35,7 @@ class Item(Resource):
             return make_response(jsonify({'message': 'Item with that name already exists!'}), 400)
 
         data = Item.parser.parse_args()
+        # new_store = StoreModel('SPAR')
         new_item = ItemModel(data["name"], data["price"])
         try:
             new_item.save_to_db()

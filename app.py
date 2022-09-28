@@ -1,7 +1,7 @@
 import os
 from datetime import timedelta
 from security import authenticate, identity
-from db import db
+from db import db, migrate
 from resources.user import UserRegister
 from resources.item import Item, ItemList
 from flask import Flask
@@ -20,6 +20,7 @@ app.config['JWT_EXPIRATION_DELTA'] = timedelta(hours=1)
 
 jwt = JWT(app, authenticate, identity)
 db.init_app(app)
+migrate.init_app(app, db)
 
 with app.app_context():
     db.create_all()
@@ -27,7 +28,6 @@ with app.app_context():
 api.add_resource(Item, "/item/<string:name>")
 api.add_resource(ItemList, "/items")
 api.add_resource(UserRegister, "/register")
-
 
 
 if __name__ == "__main__":

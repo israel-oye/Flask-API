@@ -1,5 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/python,visualstudiocode,flask,dotenv
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,visualstudiocode,flask,dotenv
+__pycache__
+api_env
+models/__pycache__
+resources/__pycache__
 
 ### dotenv ###
 .env
