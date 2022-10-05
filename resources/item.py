@@ -19,7 +19,12 @@ class Item(Resource):
         required=True,
         help="This field cannot be blank"
     )
-
+    parser.add_argument(
+        "store_id",
+        type=int,
+        required=True,
+        help="Every item needs a store id"
+    )
    
 
     @jwt_required()
@@ -35,8 +40,8 @@ class Item(Resource):
             return make_response(jsonify({'message': 'Item with that name already exists!'}), 400)
 
         data = Item.parser.parse_args()
-        # new_store = StoreModel('SPAR')
-        new_item = ItemModel(data["name"], data["price"])
+        
+        new_item = ItemModel(data["name"], data["price"], data["store_id"])
         try:
             new_item.save_to_db()
         except:
@@ -58,7 +63,7 @@ class Item(Resource):
         item = ItemModel.find_by_name(data["name"])
 
         if item is None:
-            item = ItemModel(data["name"], data["price"])
+            item = ItemModel(**data)
         else:
             item.price = data["price"]
 

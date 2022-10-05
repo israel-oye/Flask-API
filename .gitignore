@@ -2,8 +2,9 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,visualstudiocode,flask,dotenv
 __pycache__
 api_env
-models/__pycache__
-resources/__pycache__
+/models/__pycache__
+/resources/__pycache__
+/data.db
 
 ### dotenv ###
 .env
