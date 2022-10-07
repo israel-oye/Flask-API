@@ -66,6 +66,7 @@ class Item(Resource):
             item = ItemModel(**data)
         else:
             item.price = data["price"]
+            item.store_id = data["store_id"]
 
         item.save_to_db()
         return make_response(item.json())
@@ -73,4 +74,5 @@ class Item(Resource):
 class ItemList(Resource):
 
     def get(self):
-        return jsonify({"items": [item.json() for item in ItemModel.query.all()]})
+        store_items = [{"name": item.name, "price": item.price} for item in ItemModel.query.all()]
+        return jsonify({"items": store_items}, 200)

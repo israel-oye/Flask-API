@@ -33,7 +33,7 @@ class ItemModel(db.Model):
     name = db.Column(db.String(50), nullable=False, unique=True)
     price = db.Column(db.Float(precision=2))
     store_id = db.Column(db.Integer, db.ForeignKey("stores.id"))
-    store = db.relationship("StoreModel", backref="items")
+    # store = db.relationship("StoreModel")
 
     def __init__(self, name, price, store_id):
         self.name = name
@@ -42,10 +42,18 @@ class ItemModel(db.Model):
 
     
     def json(self):
-        return {
-            "name": self.name,
-            "price": self.price
-        }
+        try:
+            return {
+                "name": self.name,
+                "price": self.price,
+                "store": self.store.name
+            }
+        except AttributeError:
+            return  {
+                "name": self.name,
+                "price": self.price,
+                "store": None
+            }
 
     @classmethod
     def find_by_name(cls, name):
@@ -70,9 +78,9 @@ class StoreModel(db.Model):
     def __init__(self, name):
         self.name = name
 
-
     def json(self):
         return {
+            "store id": self.id,
             "name": self.name,
             "items": [item.json() for item in self.items.all()]
         }
