@@ -75,4 +75,4 @@ class ItemList(Resource):
 
     def get(self):
         store_items = [{"name": item.name, "price": item.price} for item in ItemModel.query.all()]
-        return jsonify({"items": store_items}, 200)
+        return make_response(jsonify({"items": store_items}), 200)

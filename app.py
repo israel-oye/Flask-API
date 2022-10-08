@@ -1,5 +1,6 @@
-import os
 from datetime import timedelta
+import os
+from dotenv import load_dotenv
 from security import authenticate, identity
 from db import db, migrate
 from resources.user import UserRegister
@@ -13,8 +14,9 @@ from flask_jwt import JWT
 app = Flask(__name__)
 api = Api(app)
 
-app.config['SECRET_KEY'] = "ekjnfjn3984ujjnijnij098u"
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///data.db"
+load_dotenv()
+app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URI")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 app.config['JWT_EXPIRATION_DELTA'] = timedelta(hours=1)
