@@ -1,8 +1,8 @@
 from datetime import timedelta
 import os
 from dotenv import load_dotenv
-from security import authenticate, identity
-from db import db, migrate
+from .security import authenticate, identity
+from .db import db, migrate
 from resources.user import UserRegister
 from resources.item import Item, ItemList
 from resources.store import Store, StoreList
