@@ -27,7 +27,8 @@ migrate.init_app(app, db)
 
 with app.app_context():
     db.create_all()
-
+    
+    
 api.add_resource(Store, "/store/<string:name>")
 api.add_resource(Item, "/item/<string:name>")
 api.add_resource(ItemList, "/items")

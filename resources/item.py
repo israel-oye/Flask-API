@@ -57,6 +57,7 @@ class Item(Resource):
             return make_response(jsonify({"message": f"Item '{name}' deleted successfully."}), 200)
         return make_response(jsonify({"message": f"Item '{name}' not found"}, 404))
     
+    @jwt_required()
     def put(self, name):
         data = Item.parser.parse_args()
 
