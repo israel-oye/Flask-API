@@ -36,5 +36,4 @@ api.add_resource(StoreList, "/stores")
 api.add_resource(UserRegister, "/register")
 
 if __name__ == "__main__":
-    
     app.run(debug=True)
