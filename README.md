@@ -2,8 +2,6 @@
 ###### The API is based on a model of a relationship betwixt a store(s) and an item(s). A user of the API can create items and add the store id of an existing Store.
 **These are the endpoints and a guide**
 
-**POST /auth**
-
 ## POST /register
 >this is the endpoint to register a new user to have access to the resources.
 ```

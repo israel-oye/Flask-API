@@ -2,7 +2,7 @@ from flask import jsonify, make_response
 from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
 from models.model import ItemModel
-from models.model import StoreModel
+
 
 class Item(Resource):
 
@@ -11,19 +11,19 @@ class Item(Resource):
         "price",
         type=float,
         required=True,
-        help="This field cannot be blank"
+        help="This field cannot be blank and must be a double."
     )
     parser.add_argument(
         "name",
         type=str,
         required=True,
-        help="This field cannot be blank"
+        help="This field cannot be blank."
     )
     parser.add_argument(
         "store_id",
         type=int,
         required=True,
-        help="Every item needs a store id"
+        help="Every item needs a store id, ensure it is an integer."
     )
    
 
@@ -45,7 +45,7 @@ class Item(Resource):
         try:
             new_item.save_to_db()
         except:
-            return make_response(jsonify({"message": "An error occured with insertion"}), 500)
+            return make_response(jsonify({"message": "An error occured with insertion...try again or ensure that the store with that id exists."}), 500)
         
         return make_response(new_item.json(), 201)
     
@@ -67,7 +67,10 @@ class Item(Resource):
             item = ItemModel(**data)
         else:
             item.price = data["price"]
-            item.store_id = data["store_id"]
+            try:
+                item.store_id = data["store_id"]
+            except:
+                return make_response({"message": "Item store_id is not editable...you can only edit name and price."}, 400)
 
         item.save_to_db()
         return make_response(item.json())

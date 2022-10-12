@@ -1,11 +1,11 @@
 import requests
-BASE_ENDPOINT = "http://127.0.0.1:5000"
+BASE_ENDPOINT = "https://storest-api.herokuapp.com" 
 AUTH_ENDPOINT = BASE_ENDPOINT + "/auth"
 
 
 login_params = {
-    "username": "admin",
-    "password": "123"
+    "username": "Frayo",
+    "password": "Frayo123"
 }
 
 auth_response = requests.post(AUTH_ENDPOINT, json=login_params, headers={'Content-Type': 'application/json'})
@@ -15,7 +15,8 @@ token = auth_response.json()["access_token"]
 
 item_params = {
     "name": "watch",
-    "price": 15000.25
+    "price": 15000.25,
+    "store_id": 2
 }
 CREATE_ITEM_ENDPOINT= BASE_ENDPOINT + f"/item/{item_params['name']}"
 cr_response = requests.post(
@@ -26,12 +27,14 @@ cr_response = requests.post(
 print(cr_response.text)
 
 update_params = {
-    "name": "necklace",
-    "price": 27455.99
+    "name": "watch",
+    "price": 27455.99,
+    "store_id": 2
 }
 UPDATE_ENDPOINT= BASE_ENDPOINT + f"/item/{update_params['name']}"
 update_response = requests.put(
     UPDATE_ENDPOINT,
+    headers={"Authorization": f"JWT {token}"},
     json=update_params
 )
 print(update_response.text)

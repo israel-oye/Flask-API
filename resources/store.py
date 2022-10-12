@@ -14,7 +14,8 @@ class Store(Resource):
     )
 
     def get(self, name):
-        store = StoreModel.find_by_name(name)
+        data = Store.parser.parse_args()
+        store = StoreModel.find_by_name(name=data["name"])
         if store:
             return make_response(store.json(), 200)
         return make_response({"message": "Store not found."}, 404)
